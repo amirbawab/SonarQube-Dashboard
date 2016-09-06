@@ -2,6 +2,7 @@ function SonarQube(version) {
     Root.call(this);
     this.metrics = {};
     this.version = version;
+    this.onNotifyEvent = null;
 
     // Set of metrics
     if(version >= 4 && version < 6) {
@@ -18,6 +19,16 @@ SonarQube.method(function addMetric(group, name, key) {
         this.metrics[group].push(new Metric(group, name, key));
     } else {
         this.metrics[group] = [];
+    }
+});
+
+SonarQube.method(function onNotify(onNotifyEvent) {
+    this.onNotifyEvent = onNotifyEvent;
+});
+
+SonarQube.method(function _notify(message){
+    if(this.onNotifyEvent) {
+        this.onNotifyEvent(message);
     }
 });
 

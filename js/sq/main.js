@@ -3,8 +3,23 @@ var sonarqube = null;
 // Set on version change
 var sqVersion = document.getElementById("sq-version");
 sqVersion.onchange = function() {
+
+    // Create a SonarQube instance with the correct version
     sonarqube = new SonarQube(sqVersion.value); 
+
+    // Add metrics to the dropdown
     addMetrics();
+
+    // Handle notification events
+    sonarqube.onNotify(function (message) {
+        if(!message || message == "") {
+            document.getElementById('notification').className = "hide";
+        } else {
+            var notification = document.getElementById("notification");
+            notification.className = "bg-danger";
+            notification.innerText = message;
+        }
+    });
 };
 
 // Set the default SonarQube
