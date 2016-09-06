@@ -7,13 +7,15 @@ Function.prototype.method = function (func) {
     return this;
 };
 
+
+
 // Allow inheritance
 Function.method(function inherits(parent) {
     this.prototype = new parent();
     var d = {}, 
         p = this.prototype;
     this.prototype.constructor = parent; 
-    this.method('uber', function uber(name) {
+    this.method(function uber(name) {
         if (!(name in d)) {
             d[name] = 0;
         }        
