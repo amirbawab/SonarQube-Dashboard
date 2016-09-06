@@ -1,3 +1,4 @@
+var sonarqube = new SonarQube();
 
 // Set datepicker fields
 $('.datepicker').datepicker({
