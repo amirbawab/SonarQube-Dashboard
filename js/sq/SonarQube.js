@@ -3,16 +3,17 @@ function SonarQube(version) {
     this.metrics = {};
     this.version = version;
     this.onNotifyEvent = null;
-
-    // Set of metrics
-    if(version >= 4 && version < 6) {
-        this.registerMetricsSet1();
-    } else {
-        console.log("The version `"+this.version+"` is not recognized by this application. Feel free to add it :)");
-    }
 }
 
 SonarQube.inherits(Root);
+
+SonarQube.method(function refreshMetrics() {
+    if(this.version >= 4 && this.version < 6) {
+        this.registerMetricsSet1();
+    } else {
+        this._notify("The version `"+this.version+"` is not recognized by this application. Feel free to add it :)");
+    }
+});
 
 SonarQube.method(function addMetric(group, name, key) {
     if(this.metrics[group]) {
