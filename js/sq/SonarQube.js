@@ -1,7 +1,12 @@
-function SonarQube() {
+function SonarQube(version) {
     Root.call(this);
     this.metrics = {};
-    this.registerMetrics();
+    this.version = version;
+
+    // Set of metrics
+    if(version >= 4 && version <= 5.6) {
+        this.registerMetricsSet1();
+    }
 }
 
 SonarQube.inherits(Root);
@@ -14,7 +19,7 @@ SonarQube.method(function addMetric(group, name, key) {
     }
 });
 
-SonarQube.method(function registerMetrics() {
+SonarQube.method(function registerMetricsSet1() {
 
 	// Complexity
     this.addMetric("Complexity", "Complexity", "complexity");
