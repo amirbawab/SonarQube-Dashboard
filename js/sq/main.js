@@ -1,5 +1,13 @@
 var sonarqube = null;
 
+// Set on version change
+var sqVersion = document.getElementById("sq-version");
+sqVersion.onchange = function() {
+    sonarqube = new SonarQube(sqVersion.value); 
+};
+
+// Set the default SonarQube
+sqVersion.onchange();
 
 // Add metrics to DOM
 function addMetrics() {
