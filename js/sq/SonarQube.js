@@ -4,8 +4,10 @@ function SonarQube(version) {
     this.version = version;
 
     // Set of metrics
-    if(version >= 4 && version <= 5.6) {
+    if(version >= 4 && version < 6) {
         this.registerMetricsSet1();
+    } else {
+        console.log("The version `"+this.version+"` is not recognized by this application. Feel free to add it :)");
     }
 }
 

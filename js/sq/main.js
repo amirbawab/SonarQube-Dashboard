@@ -4,6 +4,7 @@ var sonarqube = null;
 var sqVersion = document.getElementById("sq-version");
 sqVersion.onchange = function() {
     sonarqube = new SonarQube(sqVersion.value); 
+    addMetrics();
 };
 
 // Set the default SonarQube
@@ -19,7 +20,6 @@ function addMetrics() {
 	for(var group in sonarqube.metrics) {
 		var optgroup = document.createElement("optgroup");
 		optgroup.label = group;
-			console.log(sonarqube.metrics);
 		for(var i=0; i < sonarqube.metrics[group].length; i++) {
 			optgroup.appendChild(sonarqube.metrics[group][i].toOption());
 		}
