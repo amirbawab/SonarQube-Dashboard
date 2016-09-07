@@ -45,10 +45,36 @@ function addMetrics() {
 	}
 }
 
+function sonarQubeIt() {
+    var websiteURL = document.getElementById("website-url").value;
+    var projectKey = document.getElementById("project-key").value;
+    var fromDate = document.getElementById("from-date").value;
+    var toDate = document.getElementById("to-date").value;
+    
+    var metricsOptions = $("#metrics option:selected");
+    var metrics = [];
+    for(var i=0; i<metricsOptions.length; i++) {
+        metrics.push(metricsOptions[i].value);
+    }
+
+    var datepickerFieldFormat = $('.date').datepicker.defaults.format;
+    var fromDateMoment = moment(fromDate, datepickerFieldFormat);
+    var toDateMoment = moment(toDate, datepickerFieldFormat);
+
+    if(!websiteURL || !projectKey || !fromDate || !toDate || metrics.length == 0) {
+        alert("All fields are required!");
+    } else {
+        sonarqube.request(websiteURL, projectKey, fromDateMoment, toDateMoment, metrics);
+    }
+}
+
 // Set datepicker fields
-$('.datepicker').datepicker({
-    format: 'mm/dd/yyyy'
+$('.date').datepicker({
+    format: 'yyyy-mm-dd'
 });
+
+$('#from-datepicker').datepicker('setDate', sonarqube.config.default.fromDateMoment.toDate());
+$('#to-datepicker').datepicker('setDate', sonarqube.config.default.toDateMoment.toDate());
 
 // Set multiselect fields
 $('#metrics').multiselect({
